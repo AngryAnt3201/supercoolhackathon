@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Overall container for the user screen */
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Banner section */
+.banner {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Profile picture */
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+/* User level text */
+.user-level {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Progress bar container */
+.progress-container {
+    width: 100%;
+    background-color: #ccc;
+    height: 10px;
+    margin-top: 8px;
+}
+
+/* Progress bar (adjust width as needed based on user's progress) */
+.progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    width: 60%; /* Adjust the width based on user's progress */
+}
+
+/* Main content section */
+.main-content {
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+}
+
+.lhs-container {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* Box 1 - Camera */
+.box1 {
+    flex: 1;
+    padding: 16px;
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+/* Box 2 - Quests */
+.box2 {
+    flex: 1;
+    padding: 16px;
+    background-color: #f2f2f2;
+}
+
+
+
+.box1 img, .box3 img {
+    width: 150px;
+    height: 150px;
+}
+
+/* Box 3 - Notes */
+.box3 {
+    flex: 1;
+    padding: 16px;
+    background-color: #f2f2f2;
+    text-align: center;
+}
