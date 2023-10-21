@@ -40,23 +40,24 @@
                 </div>
             </div>
 
-
-            
                 <div class="box2">
                     <h2>Quests</h2>
+                    {% for quest in quests %}
                     <div class="quest">
-                        <h3>Find the Informant</h3>
-                        <p>Go to the bar and find the mole.</p>
+                        <!-- Display quest name -->
+                        <h3>{{ quest.name }}</h3>
+                        <!-- Display quest description -->
+                        <p>{{ quest.description }}</p>
+                        {% if quest.completed %}
+                        <p>Status: Completed</p>
+                        {% else %}
+                        <p>Status: Incomplete</p>
+                        {% endif %}
                     </div>
-                    <div class="quest">
-                        <h3>Recieve the Briefcase</h3>
-                        <p>Find Helen and complete a successful handoff without getting caught</p>
-                    </div>
+                    {% endfor %}
                     <!-- Add more quest elements as needed -->
                 </div>
             
-
-           
 
         </div>
         </div>

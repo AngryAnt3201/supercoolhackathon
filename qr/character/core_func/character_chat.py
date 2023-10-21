@@ -9,61 +9,39 @@
 
 import openai
 
+openai.api_key = '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'
 
-openai.api_key = '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'
+class Character_AI: 
 
-class Character: 
-
-    def __init__(self, creationDic):
-
+    def __init__(self, name, description, game_context, quests):
+        self.description = description
+        self.name = name
+        self.messages = [
+            {'role': 'system', 'content': 'You are a virtual character within a video game, roleplay according to your character description: ' + str(self.description)},
+            {'role': 'system', 'content': 'This is what has happened in the game so far: ' + str(game_context)}, 
+            {'role': 'system', 'content': 'These are the quests the player has been given that involve you: ' + str(quests)}
+        ]
+    #Get GPT to check for quest completion, etc. 
+    def complete_quest(self, message_segment):
         pass
 
-    '''
-    Send message to user 
-    '''
-    def character_init(self, creation_dic):
-
-        pass
-
-    #Sent prompt + context to head of message chain 
-    def set_chain(self):
-
-        pass
-
-    #Get GPT to check for flags/give quests, etc. 
-    def check_flags(self, message_segment):
-
-        pass
-
-    def issue_quest(self):
-
-        pass
-
-
-    def confirm_quest(self): 
-
-
-        pass
-
-
-    def issue_lore(self): 
-
-
+    #Call create quest endpoint 
+    def issue_quest(self, message_segment):
         pass
 
     #Pigmalion Hopefully, automatically route to generate dialog
-    def generate_dialogue(self, messages, user_input):
+    def generate_dialogue(self, user_input):
 
-        messages.append({'role': 'user', 'content': user_input})
+        self.messages.append({'role': 'user', 'content': user_input})
         response = openai.ChatCompletion.create(
             model='gpt-4-0613',
             temperature=0.1,
-            messages = messages, 
+            messages = self.messages, 
             max_tokens=200,
             functions = [
                 {
-                    'name': 'confirm_quest', 
-                    'description': 'If the player achieves the quest, call this function ',
+                    'name': 'complete_quest', 
+                    'description': 'If the player achieves the quest, call this function, also return dialogue ',
                     'parameters': {
                         'type': 'object', 
                         'properties': {
@@ -82,8 +60,7 @@ class Character:
         except KeyError:
             print("Nothing to confess")
 
-
-        messages.append({'role': 'system', 'content': response['choices'][0].message['content']})
+        self.messages.append({'role': 'system', 'content': response['choices'][0].message['content']})
         return response['choices'][0].message['content']
 
 

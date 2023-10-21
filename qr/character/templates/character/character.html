@@ -75,7 +75,7 @@
         <img class="character-image" src="{{ character.image.url }}" alt="Character Image">
 
         <!-- Character heading -->
-        <h1 class="character-heading">Raven</h1>
+        <h1 class="character-heading">{{ character.name }} </h1>
 
         <!-- Chat log container -->
         <div class="chat-log" id="chat-log">
@@ -114,7 +114,9 @@
 
                 // Prepare data to send
                 const data = {
-                    message: message
+                    message: message,
+                    cache_key: '{{ cache_key }}',
+                    pk: "{{ character.pk }}", // Replace with character.
                 };
 
                 // Get CSRF token from meta tag
@@ -129,6 +131,7 @@
                         'X-CSRFToken': csrfToken
                     },
                     body: JSON.stringify(data)
+    
                 })
                 .then(response => {
                     if (!response.ok) {
