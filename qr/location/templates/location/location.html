@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Screen</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+         
+        /* Character screen container */
+        .character-screen {
+            width: 100%;
+            max-width: 400px; /* Adjust the maximum width as needed */
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* Character image */
+        .character-image {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Character heading */
+        .character-heading {
+            font-size: 24px;
+            margin-top: 16px;
+        }
+
+        /* Chat log container */
+        .chat-log {
+            max-height: 300px; /* Adjust the maximum height for scrollability */
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 8px;
+            margin-top: 16px;
+        }
+
+        /* Chat input container */
+        .chat-input-container {
+            display: flex;
+            margin-top: 16px;
+        }
+
+        /* Chat input field */
+        .chat-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Chat button */
+        .chat-button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="character-screen">
+        <!-- Character image -->
+        <img class="character-image" src="character-image.jpg" alt="Character Image">
+
+        <!-- Character heading -->
+        <h1 class="character-heading">Raven</h1>
+
+        <!-- Chat log container -->
+        <div class="chat-log">
+            <!-- Example chat messages (you can replace with actual chat messages) -->
+            <div><strong>User:</strong> Hello!</div>
+            <div><strong>Character:</strong> Hi there! How can I assist you today?</div>
+            <!-- Add more chat messages as the conversation progresses -->
+        </div>
+
+        <!-- Chat input container -->
+        <div class="chat-input-container">
+            <!-- Chat input field -->
+            <input class="chat-input" type="text" placeholder="Type your message..." />
+
+            <!-- Chat button -->
+            <button class="chat-button">Send</button>
+        </div>
+    </div>
+</body>
+</html>

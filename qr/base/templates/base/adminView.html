@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel = "stylesheet" href = "{% static 'styles/adminView.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h1> Admin Dashboard </h1>
+
+        </div>
+        <div class="section">
+            <h2>Locations</h2>
+            {% for location in locations %}
+                <div class="item">
+                    <img src="{{ location.image.url }}" alt="{{ location.name }}">
+                    <div class="info">
+                        <h3>{{ location.name }}</h3>
+                        <p>{{ location.description }}</p>
+                    </div>
+                    <div>
+                        <a href="{% url 'base:generate_location_qr_code' location.pk %}">Generate QR code</a>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+            <a href="{% url 'location:createLocation' %}">Create Location</a>
+        </div>
+        
+        <div class="section">
+            <h2>Characters</h2>
+            {% for character in characters %}
+                <div class="item">
+                    <img src="{{ character.image.url }}" alt="{{ character.name }}">
+                    <div class="info">
+                        <h3>{{ character.name }}</h3>
+                        <p>{{ character.description }}</p>
+                    </div>
+                    <div> 
+                        <a href="{% url 'base:generate_qr_code' character.pk %}">Generate QR code</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <a href="{% url 'character:createCharacter' %}">Create Character</a>
+
+        </div>
+        
+        <!-- Add more sections for other objects here -->
+    </div>
+</body>
+</html>

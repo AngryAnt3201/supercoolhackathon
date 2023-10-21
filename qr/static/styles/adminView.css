@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.item img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 20px;
+}
+
+.item .info {
+    flex: 1;
+}
+
+.item .info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.item .info p {
+    font-size: 16px;
+}

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Character Screen</title>
     <style>
@@ -12,7 +13,7 @@
             box-sizing: border-box;
         }
 
-        
+         
         /* Character screen container */
         .character-screen {
             width: 100%;
@@ -71,27 +72,92 @@
 <body>
     <div class="character-screen">
         <!-- Character image -->
-        <img class="character-image" src="character-image.jpg" alt="Character Image">
+        <img class="character-image" src="{{ character.image.url }}" alt="Character Image">
 
         <!-- Character heading -->
         <h1 class="character-heading">Raven</h1>
 
         <!-- Chat log container -->
-        <div class="chat-log">
+        <div class="chat-log" id="chat-log">
             <!-- Example chat messages (you can replace with actual chat messages) -->
-            <div><strong>User:</strong> Hello!</div>
-            <div><strong>Character:</strong> Hi there! How can I assist you today?</div>
+            
             <!-- Add more chat messages as the conversation progresses -->
         </div>
 
         <!-- Chat input container -->
         <div class="chat-input-container">
             <!-- Chat input field -->
-            <input class="chat-input" type="text" placeholder="Type your message..." />
+            <input class="chat-input" id="chat-input" type="text" placeholder="Type your message..." />
 
             <!-- Chat button -->
-            <button class="chat-button">Send</button>
+            <button class="chat-button" id="chat-button">Send</button>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chatButton = document.getElementById('chat-button');
+            const chatLog = document.getElementById('chat-log');
+            const chatInput = document.getElementById('chat-input');
+
+            // Function to handle the click event
+            function sendMessage() {
+                const message = chatInput.value.trim();
+
+                if (message === "") {
+                    return; // Don't send an empty message
+                }
+
+                const chatMessage = document.createElement('div');
+                chatMessage.innerHTML = `<strong>User:</strong> ${message}`;
+                chatLog.appendChild(chatMessage);
+
+                // Prepare data to send
+                const data = {
+                    message: message
+                };
+
+                // Get CSRF token from meta tag
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+                // Send data to the server using the Fetch API
+                fetch('/generateDialogue', { // Make sure to replace with the path to your Django view
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Include CSRF token in the request headers
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        // If the server returns any status other than 2xx, it's an error
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        const chatMessage = document.createElement('div');
+                        chatMessage.innerHTML = `<strong>{{ character.name }}:</strong> ${data.message}`;
+                        chatLog.appendChild(chatMessage);
+
+                        chatInput.value = ''; // Clear the input field only if the message was sent successfully
+                    } else {
+                        console.error('Server error:', data);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Fetch error:', error);
+                });
+            }
+
+            // Attach event listener to chat button
+            chatButton.addEventListener('click', sendMessage);
+        });
+    </script>
+
+
 </body>
 </html>
