@@ -16,3 +16,9 @@ def user(request):
 def index(request):
 
     return render(request, 'base/index.html')
+
+
+
+def adminView(request):
+
+    return render(request, 'base/adminView.html')

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Character</title>
+    <link rel="stylesheet" href="{% static 'styles/characterCreation.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Create Character</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Character Name -->
+            <div class="form-field">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            
+            <!-- Character Description -->
+            <div class="form-field">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+            
+            <!-- Character Image Upload -->
+            <div class="form-field">
+                <label for="id_image">Image:</label>
+                <input type="file" id="id_image" name="image" accept="image/*" required>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit">Create Character</button>
+        </form>
+    </div>
+</body>
+</html>
+
