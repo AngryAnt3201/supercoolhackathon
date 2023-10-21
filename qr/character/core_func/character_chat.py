@@ -23,7 +23,7 @@ class Character:
     Send message to user 
     '''
 
-    def character_init(self):
+    def character_init(self, creation_dic):
 
         pass
 
@@ -32,13 +32,10 @@ class Character:
 
         pass
 
-
     #Get GPT to check for flags/give quests, etc. 
     def check_flags(self, message_segment):
 
-
         pass
-
 
     def issue_quest(self):
 
@@ -59,23 +56,24 @@ class Character:
     #Pigmalion Hopefully, automatically route to generate dialog
     def sendMessage(self, user_message, message_chain):
 
-
         message_chain.append({'role': 'user', 'message': user_message})
         response = openai.ChatCompletion.create(
             model='gpt-4-0613',
             temperature=0.5,
             messages=message_chain,
-            functions = [
-
-            ], 
             function_call='auto',          
         )
 
 
         response_message = response['choices'][0]['message']
 
-
         pass
+
+
+
+
+
+
 
 
         

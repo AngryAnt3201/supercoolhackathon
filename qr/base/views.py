@@ -11,8 +11,6 @@ def user(request):
 
 
 
-
-
 def index(request):
 
     return render(request, 'base/index.html')
