@@ -112,26 +112,29 @@ def generate_quests(request):
 
 
 def create_quest_object(data):
-
     quest_name = data.get('name')
     quest_description = data.get('description')
     character_name = data.get('character')
-    location = data.get('location')  # Uncomment this if the location is provided
-    # location_name = data.get('location')  # Uncomment this if the location's name is also provided in the data.
+    location_name = data.get('location')
     quest_xp = data.get('xp', 0)  # Assuming 0 XP if not provided.
 
-    try:
-        # Get the character and location instances from the database.
-        # It's assuming that 'character_name' and 'location_name' are the unique names of the objects.
-        character = Character.objects.get(name=character_name)
-        # location = Location.objects.get(name=location_name)  # Uncomment if location is provided
+    character = None
+    location = None
 
-        # Create a new Quest object
+    try:
+        # Attempt to retrieve the character and location instances from the database, if provided.
+        if character_name:
+            character = Character.objects.get(name=character_name)
+
+        if location_name:
+            location = Location.objects.get(name=location_name)
+
+        # Create a new Quest object. This object can handle character or location being None.
         quest = Quest(
             name=quest_name,
             description=quest_description,
-            character=character,
-            location=location,  # Uncomment if location is provided
+            character=character,  # This can be None
+            location=location,  # This can be None
             xp=quest_xp
         )
 
@@ -141,15 +144,12 @@ def create_quest_object(data):
         return quest
 
     except ObjectDoesNotExist as e:
-        # This block will be triggered if either the character or location does not exist.
-        # Handle the error as appropriate for your application's needs.
-        print(f"An error occurred: {e}")  # Simple print statement for demonstration; consider logging the error.
-        # You might want to return something relevant here, depending on your application's logic.
+        # This block will be triggered if the provided character or location name does not exist.
+        print(f"An error occurred: {e}")
+        # Additional handling can be added here, such as re-raising the exception or returning a specific value/error.
 
     except Exception as e:
-        # Generic error handling, adapt as needed
-        print(f"An unexpected error occurred: {e}")  # Again, consider proper logging in a production scenario.
-        # Handle the error appropriately for your application's needs.
-
-    pass
+        # Generic error handling for any other unexpected exceptions.
+        print(f"An unexpected error occurred: {e}")
+        # Additional handling as per your application's requirements.
     

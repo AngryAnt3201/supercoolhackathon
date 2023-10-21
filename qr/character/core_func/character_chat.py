@@ -8,8 +8,9 @@
 #user context -> Current quests, other characters 
 
 import openai
+import os
 
-openai.api_key = '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'
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 class Character_AI: 
 
@@ -38,18 +39,6 @@ class Character_AI:
             temperature=0.1,
             messages = self.messages, 
             max_tokens=200,
-            functions = [
-                {
-                    'name': 'complete_quest', 
-                    'description': 'If the player achieves the quest, call this function, also return dialogue ',
-                    'parameters': {
-                        'type': 'object', 
-                        'properties': {
-                        },
-                    }
-                }
-            ], 
-            function_call='auto', 
         )
         response_message = response["choices"][0]["message"]
 

@@ -71,26 +71,32 @@
 <body>
     <div class="character-screen">
         <!-- Character image -->
-        <img class="character-image" src="character-image.jpg" alt="Character Image">
+        <img class="character-image" src="{{ location.image.url }} alt="Character Image">
 
         <!-- Character heading -->
-        <h1 class="character-heading">Raven</h1>
+        <h1 class="character-heading">{{ location.name }}</h1>
+        <p> {{ location.description }}</p>
+
+        {% if queststr %}
+
+        <p> {{ queststr }}</p>
+
+        {% endif %}
 
         <!-- Chat log container -->
         <div class="chat-log">
+            
             <!-- Example chat messages (you can replace with actual chat messages) -->
-            <div><strong>User:</strong> Hello!</div>
-            <div><strong>Character:</strong> Hi there! How can I assist you today?</div>
+            {% if qr_code_image %}
+            <div>
+            <img src="data:image/png;base64,{{ qr_code_image }}" alt="QR Code for confirmation">
+            </div>
+            <h1> Find Staff to Scan your QR code to complete the quest </h1>
+            {% else %}
+            {% endif %}
             <!-- Add more chat messages as the conversation progresses -->
         </div>
 
-        <!-- Chat input container -->
-        <div class="chat-input-container">
-            <!-- Chat input field -->
-            <input class="chat-input" type="text" placeholder="Type your message..." />
-
-            <!-- Chat button -->
-            <button class="chat-button">Send</button>
         </div>
     </div>
 </body>

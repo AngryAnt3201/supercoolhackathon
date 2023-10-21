@@ -23,10 +23,14 @@ def character(request, pk):
     quests = Quest.objects.filter(character=character)
     quest_strings = []
 
+            
     for quest in quests:
         # Combine the quest name and description into a single string
         quest_string = f"{quest.name}: {quest.description}"
         quest_strings.append(quest_string)
+        quest.completed = True
+        quest.save()
+
     current_character = Character_AI(character.name, character.description, "You are in newyork during the 1930's", "These are quests associated with your character: " + str(quest_strings))
 
     cache_key = 'character_' + str(pk)
@@ -67,10 +71,7 @@ def generateDialogue(request):
             #Complete Quest
             
             character = get_object_or_404(Character, pk=pk)
-            quests = Quest.objects.filter(character=character)
-            for quest in quests:
-                quest.completed = True
-                quest.save()
+            
 
 
             return_message = return_message[0]

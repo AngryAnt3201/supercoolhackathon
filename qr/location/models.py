@@ -7,6 +7,7 @@ class Location(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     image = models.ImageField(upload_to='images/', default='images/placeholder.jpg', blank=True)
+    staff_flagged = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

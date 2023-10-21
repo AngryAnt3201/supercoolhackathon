@@ -9,8 +9,11 @@ Get all characters and locations
 '''
 import openai 
 import json
+import os
 
-openai.api_key = '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'
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+
+from ..models import Quest
 
 class QuestGenerator:
 
@@ -23,10 +26,15 @@ class QuestGenerator:
     #Generate 3 quests for the player initially 
     def generate_quests_intial(self, characters, locations, story_context):
 
+
+        quests_completed = Quest.objects.filter(completed=True)
+        quests_completed = {quest.name: quest.description for quest in quests_completed}
+
         context = [
             {'role': 'system', 'content': 'You are a quest generator, you must generate quests for the player based off the characters in the game, the locations and the games context'},
             {'role': 'system', 'content': 'The quests must be simple and only involve either a character or a location, not both. Quests involve visiting a location or talking to a certain character'},
             {'role': 'system', 'content': 'This is what has happened in the game so far: ' + str(story_context)},
+            {'role': 'system', 'content': 'These are the quests already completed by the player: ' + str(quests_completed)},
             {'role': 'system', 'content': 'These are the characters in the game: ' + str(characters)},
             {'role': 'system', 'content': 'These are the locations in the game: ' + str(locations)},
         ]
