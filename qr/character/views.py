@@ -6,13 +6,11 @@ from character.forms import CharacterForm
 #Character web views
 
 
-
 def character(request):
     return render(request, 'character/character.html')
 
 
 def createCharacter(request):
-
 
     form = CharacterForm(request.POST, request.FILES)
 
